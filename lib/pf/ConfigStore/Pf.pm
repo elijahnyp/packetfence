@@ -67,7 +67,7 @@ sub cleanupAfterRead {
             $data->{$key} = POSIX::strftime("%Y-%m-%d", localtime($time));
         } elsif ($type eq 'multi') {
             my $value = $data->{$key};
-            my @values = split( /\s*,\s*/, $value ) if $value;
+            my @values = split( /\s*,\s*/, $value // '');
             $data->{$key} = \@values;
         } elsif ( $type eq 'list' ) {
             my $value = $data->{$key};
@@ -157,7 +157,7 @@ __PACKAGE__->meta->make_immutable unless $ENV{"PF_SKIP_MAKE_IMMUTABLE"};
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005-2018 Inverse inc.
+Copyright (C) 2005-2019 Inverse inc.
 
 =head1 LICENSE
 

@@ -39,13 +39,13 @@ Since this is a SPA (Single-Page Application), it is currently accessible from `
 * [messageformat](https://messageformat.github.io/messageformat/) -- internationalization formatting
 * [vue-browser-acl](https://github.com/mblarsen/vue-browser-acl) -- ACLs
 * [axios](https://github.com/axios/axios) -- http client
-* [vuelidate](https://monterail.github.io/vuelidate/) -- form validation
+* [vuelidate](https://vuelidate.netlify.com/) -- form validation
 * [vue-awesome](https://justineo.github.io/vue-awesome/demo/) -- font awesome component (svg)
 * [vue2vis](https://github.com/alexcode/vue2vis/) -- VueJS to Vis
  * [vis](http://visjs.org/) -- Vis
 * [vue-timeago](https://github.com/egoist/vue-timeago) -- show relative time
 * [Plotly](https://plot.ly/javascript/reference/) -- svg charts
-* [date-fns](https://date-fns.org/v1.29.0/docs/) -- datetime utils
+* [date-fns](https://date-fns.org/docs/Getting-Started) -- datetime utils
 * [vue-bootstrap-datetimepicker](http://eonasdan.github.io/bootstrap-datetimepicker/) -- datetime input form element
 * [papaparse](https://www.papaparse.com/) -- parse CSV
 * [uuid](https://www.npmjs.com/package/uuid) -- RFC4122 UUIDs

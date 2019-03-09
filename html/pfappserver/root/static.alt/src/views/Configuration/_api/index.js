@@ -9,9 +9,19 @@ export default {
       return response.data
     })
   },
+  authenticationSourcesOptions: sourceType => {
+    return apiCall.options(`config/sources?type=${sourceType}`).then(response => {
+      return response.data
+    })
+  },
   authenticationSource: id => {
     return apiCall.get(`config/source/${id}`).then(response => {
       return response.data.item
+    })
+  },
+  authenticationSourceOptions: id => {
+    return apiCall.options(`config/source/${id}`).then(response => {
+      return response.data
     })
   },
   createAuthenticationSource: data => {
@@ -43,6 +53,11 @@ export default {
   base: id => {
     return apiCall.get(`config/base/${id}`).then(response => {
       return response.data.item
+    })
+  },
+  updateBase: data => {
+    return apiCall.patch(`config/base/${data.id}`, data).then(response => {
+      return response.data
     })
   },
   /**
@@ -79,9 +94,19 @@ export default {
       return response.data
     })
   },
+  rolesOptions: () => {
+    return apiCall.options('config/roles').then(response => {
+      return response.data
+    })
+  },
   role: id => {
     return apiCall.get(`config/role/${id}`).then(response => {
       return response.data.item
+    })
+  },
+  roleOptions: id => {
+    return apiCall.options(`config/role/${id}`).then(response => {
+      return response.data
     })
   },
   createRole: data => {
@@ -105,9 +130,19 @@ export default {
       return response.data
     })
   },
+  domainsOptions: () => {
+    return apiCall.options('config/domains').then(response => {
+      return response.data
+    })
+  },
   domain: id => {
     return apiCall.get(`config/domain/${id}`).then(response => {
       return response.data.item
+    })
+  },
+  domainOptions: id => {
+    return apiCall.options(`config/domain/${id}`).then(response => {
+      return response.data
     })
   },
   createDomain: data => {
@@ -131,9 +166,19 @@ export default {
       return response.data
     })
   },
+  realmsOptions: () => {
+    return apiCall.options('config/realms').then(response => {
+      return response.data
+    })
+  },
   realm: id => {
     return apiCall.get(`config/realm/${id}`).then(response => {
       return response.data.item
+    })
+  },
+  realmOptions: id => {
+    return apiCall.options(`config/realm/${id}`).then(response => {
+      return response.data
     })
   },
   createRealm: data => {
@@ -171,6 +216,29 @@ export default {
     return apiCall.delete(`config/floating_device/${id}`)
   },
   /**
+   * SSL Certificates
+   */
+  certificate: id => {
+    return apiCall.get(`config/certificate/${id}`).then(response => {
+      return response.data
+    })
+  },
+  certificateInfo: id => {
+    return apiCall.get(`config/certificate/${id}/info`).then(response => {
+      return response.data
+    })
+  },
+  createCertificate: data => {
+    return apiCall.put(`config/certificate/${data.id}`, data).then(response => {
+      return response.data
+    })
+  },
+  generateCertificateSigningRequest: data => {
+    return apiCall.post(`config/certificate/${data.id}/generate_csr`, data).then(response => {
+      return response.data
+    })
+  },
+  /**
    * Portal Modules
    */
   portalModules: params => {
@@ -199,9 +267,19 @@ export default {
       return response.data
     })
   },
+  switchesOptions: switchGroup => {
+    return apiCall.options(`config/switches?type=${switchGroup}`).then(response => {
+      return response.data
+    })
+  },
   switche: id => {
-    return apiCall.get(`config/switch/${id}`).then(response => {
+    return apiCall.get(`config/switch/${encodeURIComponent(id)}`).then(response => {
       return response.data.item
+    })
+  },
+  switchOptions: id => {
+    return apiCall.options(`config/switch/${encodeURIComponent(id)}`).then(response => {
+      return response.data
     })
   },
   createSwitch: data => {
@@ -210,12 +288,12 @@ export default {
     })
   },
   updateSwitch: data => {
-    return apiCall.patch(`config/switch/${data.id}`, data).then(response => {
+    return apiCall.patch(`config/switch/${data.encodeURIComponent(data.id)}`, data).then(response => {
       return response.data
     })
   },
   deleteSwitch: id => {
-    return apiCall.delete(`config/switch/${id}`)
+    return apiCall.delete(`config/switch/${encodeURIComponent(id)}`)
   },
   /**
    * SwitchGroups
@@ -225,9 +303,19 @@ export default {
       return response.data
     })
   },
+  switchGroupsOptions: () => {
+    return apiCall.options('config/switch_groups').then(response => {
+      return response.data
+    })
+  },
   switchGroup: id => {
-    return apiCall.get(`config/switch_group/${id}`).then(response => {
+    return apiCall.get(`config/switch_group/${encodeURIComponent(id)}`).then(response => {
       return response.data.item
+    })
+  },
+  switchGroupOptions: id => {
+    return apiCall.options(`config/switch_group/${encodeURIComponent(id)}`).then(response => {
+      return response.data
     })
   },
   createSwitchGroup: data => {
@@ -236,12 +324,12 @@ export default {
     })
   },
   updateSwitchGroup: data => {
-    return apiCall.patch(`config/switch_group/${data.id}`, data).then(response => {
+    return apiCall.patch(`config/switch_group/${data.encodeURIComponent(data.id)}`, data).then(response => {
       return response.data
     })
   },
   deleteSwitchGroup: id => {
-    return apiCall.delete(`config/switch_group/${id}`)
+    return apiCall.delete(`config/switch_group/${encodeURIComponent(id)}`)
   },
   /**
    * Connection Profiles
@@ -251,9 +339,19 @@ export default {
       return response.data
     })
   },
+  connectionProfilesOptions: () => {
+    return apiCall.options('config/connection_profiles').then(response => {
+      return response.data
+    })
+  },
   connectionProfile: id => {
     return apiCall.get(`config/connection_profile/${id}`).then(response => {
       return response.data.item
+    })
+  },
+  connectionProfileOptions: id => {
+    return apiCall.options(`config/connection_profile/${id}`).then(response => {
+      return response.data
     })
   },
   createConnectionProfile: data => {
@@ -269,10 +367,32 @@ export default {
   deleteConnectionProfile: id => {
     return apiCall.delete(`config/connection_profile/${id}`)
   },
+  /**
+   * Connection Profiles Files
+   */
   connectionProfileFiles: params => {
     return apiCall.get(`config/connection_profile/${params.id}/files`, { params }).then(response => {
       return response.data
     })
+  },
+  connectionProfileFile: params => {
+    const get = params.quiet ? 'getQuiet' : 'get'
+    return apiCall[get](`config/connection_profile/${params.id}/files/${params.filename}`).then(response => {
+      return response.data
+    })
+  },
+  createConnectionProfileFile: params => {
+    return apiCall.put(`config/connection_profile/${params.id}/files/${params.filename}`, params.content).then(response => {
+      return response.data
+    })
+  },
+  updateConnectionProfileFile: params => {
+    return apiCall.patch(`config/connection_profile/${params.id}/files/${params.filename}`, params.content).then(response => {
+      return response.data
+    })
+  },
+  deleteConnectionProfileFile: params => {
+    return apiCall.delete(`config/connection_profile/${params.id}/files/${params.filename}`)
   },
   /**
    * Provisionings
@@ -508,6 +628,32 @@ export default {
     return apiCall.delete(`config/TODO/${id}`)
   },
   /**
+   * Firewalls
+   */
+  firewalls: params => {
+    return apiCall.get('config/firewalls', { params }).then(response => {
+      return response.data
+    })
+  },
+  firewall: id => {
+    return apiCall.get(`config/firewall/${id}`).then(response => {
+      return response.data.item
+    })
+  },
+  createFirewall: data => {
+    return apiCall.post('config/firewalls', data).then(response => {
+      return response.data
+    })
+  },
+  updateFirewall: data => {
+    return apiCall.patch(`config/firewall/${data.id}`, data).then(response => {
+      return response.data
+    })
+  },
+  deleteFirewall: id => {
+    return apiCall.delete(`config/firewall/${id}`)
+  },
+  /**
    * Scans
    */
   scanEngines: params => {
@@ -532,5 +678,88 @@ export default {
   },
   deleteScanEngine: id => {
     return apiCall.delete(`config/scan/${id}`)
+  },
+  /**
+   * Syslog Parsers
+   */
+  syslogParsers: params => {
+    return apiCall.get('config/syslog_parsers', { params }).then(response => {
+      return response.data
+    })
+  },
+  syslogParser: id => {
+    return apiCall.get(`config/syslog_parser/${id}`).then(response => {
+      return response.data.item
+    })
+  },
+  createSyslogParser: data => {
+    return apiCall.post('config/syslog_parsers', data).then(response => {
+      return response.data
+    })
+  },
+  updateSyslogParser: data => {
+    return apiCall.patch(`config/syslog_parser/${data.id}`, data).then(response => {
+      return response.data
+    })
+  },
+  deleteSyslogParser: id => {
+    return apiCall.delete(`config/syslog_parser/${id}`)
+  },
+  dryRunSyslogParser: data => {
+    return apiCall.post('config/syslog_parsers/dry_run', data).then(response => {
+      return response.data
+    })
+  },
+  /**
+   * Syslog Forwarders
+   */
+  syslogForwarders: params => {
+    return apiCall.get('config/syslog_forwarders', { params }).then(response => {
+      return response.data
+    })
+  },
+  syslogForwarder: id => {
+    return apiCall.get(`config/syslog_forwarder/${id}`).then(response => {
+      return response.data.item
+    })
+  },
+  createSyslogForwarder: data => {
+    return apiCall.post('config/syslog_forwarders', data).then(response => {
+      return response.data
+    })
+  },
+  updateSyslogForwarder: data => {
+    return apiCall.patch(`config/syslog_forwarder/${data.id}`, data).then(response => {
+      return response.data
+    })
+  },
+  deleteSyslogForwarder: id => {
+    return apiCall.delete(`config/syslog_forwarder/${id}`)
+  },
+  /**
+   * Wrix Locations
+   */
+  wrixLocations: params => {
+    return apiCall.get('wrix_locations', { params }).then(response => {
+      return response.data
+    })
+  },
+  wrixLocation: id => {
+    return apiCall.get(`wrix_location/${id}`).then(response => {
+      return response.data.item
+    })
+  },
+  createWrixLocation: data => {
+    return apiCall.post('wrix_locations', data).then(response => {
+      return response.data
+    })
+  },
+  updateWrixLocation: data => {
+    return apiCall.patch(`wrix_location/${data.id}`, data).then(response => {
+      return response.data
+    })
+  },
+  deleteWrixLocation: id => {
+    return apiCall.delete(`wrix_location/${id}`)
   }
 }

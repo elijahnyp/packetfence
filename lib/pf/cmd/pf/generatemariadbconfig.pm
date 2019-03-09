@@ -49,6 +49,8 @@ sub _run {
         max_allowed_packet => $Config{database_advanced}{max_allowed_packet},
         thread_cache_size => $Config{database_advanced}{thread_cache_size},
         server_ip => $management_network ? $management_network->{Tvip} // $management_network->{Tip} : "",
+        performance_schema => $Config{database_advanced}{performance_schema},
+        max_connect_errors => $Config{database_advanced}{max_connect_errors},
     );
 
     # Only generate cluster configuration if there is more than 1 enabled host in the cluster
@@ -102,7 +104,7 @@ Minor parts of this file may have been contributed. See CREDITS.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005-2018 Inverse inc.
+Copyright (C) 2005-2019 Inverse inc.
 
 =head1 LICENSE
 

@@ -36,6 +36,7 @@
           :uuid="uuids[index]"
           :vuelidate="getVuelidateModel(index)"
           :ref="'component-' + index"
+          :drag="drag"
           @validations="setChildValidations(index, $event)"
           @mouseenter="onMouseEnter(index)"
           @mousemove="onMouseEnter(index)"
@@ -120,11 +121,11 @@ export default {
     },
     minFields: {
       type: Number,
-      default: false
+      default: 0
     },
     maxFields: {
       type: Number,
-      default: false
+      default: 0
     }
   },
   data () {
@@ -140,6 +141,7 @@ export default {
       get () {
         if (this.value && this.uuids.length < this.value.length) { // only on initial load
           this.value.forEach((_, index) => {
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.uuids[index] = uuidv4()
           })
         }

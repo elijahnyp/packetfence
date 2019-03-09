@@ -27,11 +27,22 @@ const actions = {
   all: () => {
     const params = {
       sort: 'id',
-      fields: ['id', 'workgroup'].join(',')
+      fields: ['id', 'workgroup', 'ntlm_cache'].join(',')
     }
     return api.domains(params).then(response => {
       return response.items
     })
+  },
+  options: (context, id) => {
+    if (id) {
+      return api.domainOptions(id).then(response => {
+        return response
+      })
+    } else {
+      return api.domainsOptions().then(response => {
+        return response
+      })
+    }
   },
   getDomain: ({ state, commit }, id) => {
     if (state.cache[id]) {

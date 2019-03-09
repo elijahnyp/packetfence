@@ -40,7 +40,7 @@ dhcp_rate_limiting=5s
 #
 # network.rogue_dhcp_detection
 #
-# Tries to identify Rogue DHCP Servers and triggers the 1100010 violation if one is found.
+# Tries to identify Rogue DHCP Servers and triggers the 1100010 security_event if one is found.
 # This feature is only available if the dhcpdetector is activated.
 rogue_dhcp_detection=enabled
 #
@@ -74,6 +74,11 @@ dhcpoption82logger=disabled
 # Do not change unless you know what you are doing
 #Possibilities are: DHCPOFFER,DHCPREQUEST,DHCPDECLINE,DHCPACK,DHCPRELEASE
 dhcp_filter_by_message_types=DHCPREQUEST,DHCPACK
+#
+# network.dhcp_process_ipv6
+#
+# Enable/disable ipv6 dhcp packets processing by pfdhcplistener.
+dhcp_process_ipv6=enabled
 #
 # network.force_listener_update_on_ack
 #
@@ -165,7 +170,7 @@ default_access_duration=12h
 #
 # alerting.emailaddr
 #
-# Comma-delimited list of email addresses to which notifications of rogue DHCP servers, violations with an action of "email", or any other
+# Comma-delimited list of email addresses to which notifications of rogue DHCP servers, security_events with an action of "email", or any other
 # PacketFence-related message goes to.
 emailaddr=pf@localhost
 #
@@ -182,7 +187,7 @@ smtpserver=localhost
 #
 # alerting.subjectprefix
 #
-#Subject prefix for email notifications of rogue DHCP servers, violations with an action of "email", or any other
+#Subject prefix for email notifications of rogue DHCP servers, security_events with an action of "email", or any other
 #PacketFence-related message.
 subjectprefix=PF Alert:
 #
@@ -323,6 +328,16 @@ thread_cache_size=25
 #
 # The max_allowed_packet MySQL configuration attribute (in MB). Only change if you know what you are doing. Will only affect a locally running MySQL server.
 max_allowed_packet=16
+#
+# database_advanced.performance_schema
+#
+# The performance_schema MySQL configuration attribute. Only change if you know what you are doing. Will only affect a locally running MySQL server.
+performance_schema=NO
+#
+# database_advanced.max_connect_errors
+#
+# The max_connect_errors MySQL configuration attribute. Only change if you know what you are doing. Will only affect a locally running MySQL server.
+max_connect_errors=100
 
 [services]
 # services.pfipset
@@ -871,6 +886,11 @@ multihost=disabled
 #
 # The algorithm used to calculate the VLAN in a VLAN pool.
 vlan_pool_technique = username_hash
+#
+# active_directory_os_join_check_bypass
+#
+# Enable to bypass the operating system domain join verification.
+active_directory_os_join_check_bypass=disabled
 
 [provisioning]
 #
@@ -1129,6 +1149,12 @@ radius_attributes=username,NAS-Identifier,Called-Station-Id,Calling-Station-Id
 #
 # Normalize the radius machine auth username
 normalize_radius_machine_auth_username=disabled
+#
+# radius_configuration.username_attributes
+#
+# Which attributes to use to get the username from a RADIUS request
+# The order of the attributes are listed in this configuration parameter is followed while performing the lookup
+username_attributes=PacketFence-UserNameAttribute,TLS-Client-Cert-Subject-Alt-Name-Upn,TLS-Client-Cert-Common-Name,User-Name
 
 [pfdhcp]
 #

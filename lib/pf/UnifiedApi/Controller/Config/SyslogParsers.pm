@@ -19,6 +19,7 @@ use warnings;
 
 
 use Mojo::Base qw(pf::UnifiedApi::Controller::Config::Subtype);
+use pf::error qw(is_error);
 
 has 'config_store_class' => 'pf::ConfigStore::Pfdetect';
 has 'form_class' => 'pfappserver::Form::Config::Pfdetect';
@@ -64,8 +65,8 @@ sub dry_run {
         return $self->render_error( 400, "Bad Request : $error" );
     }
 
-    my $form = $self->form($new_data);
-    if ( !defined $form ) {
+    my ($status, $form) = $self->form($new_data);
+    if ( is_error($status) ) {
         return $self->render_error( 422, "Cannot determine the valid type" );
     }
 
@@ -73,8 +74,7 @@ sub dry_run {
         return $self->render_error(422, "Type of $new_data->{type} does not support dry_run");
     }
 
-    $form->field('lines')->is_active(1);
-    $form->process( params => $new_data, posted => 1 );
+    $form->process( params => $new_data, posted => 1, active => [qw(lines)]);
     if ($form->has_errors) {
         return $self->render_error(422, "Unable to validate", $self->format_form_errors($form));
     }
@@ -92,7 +92,7 @@ Inverse inc. <info@inverse.ca>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005-2018 Inverse inc.
+Copyright (C) 2005-2019 Inverse inc.
 
 =head1 LICENSE
 
